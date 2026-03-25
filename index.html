@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spin & Win</title>
+<title>Spin & Win ZA</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:linear-gradient(135deg,#141e30,#243b55);
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   color:#fff;
   text-align:center;
 }
@@ -80,8 +80,8 @@ canvas{
 
 <!-- SPIN -->
 <div id="spinSection">
-  <h1>🎁 Spin & Win</h1>
-  <p>You have 1 chance today 😳</p>
+  <h1>🎁 South Africa Reward Spin</h1>
+  <p>You have 1 chance to win today 🇿🇦</p>
 
   <div class="wheel-container">
     <div class="pointer">▼</div>
@@ -112,10 +112,12 @@ canvas{
 </div>
 
 <script>
-const CPA_LINK = "https://max.bountyads.store/?utm_medium=8ebfe9ea8ea08199550e9d5cbe70ee55dbafe5f7&utm_campaign=IQ";
 
-/* ================= Wheel Setup ================= */
-const rewards = ["Try Again","$10","Bonus","$50","Almost","$100"];
+/* CPA LINK */
+const CPA_LINK = "https://max.bountyads.store/?utm_medium=b9043e438aaca0461451fdff93a6b518e2c96be6&utm_campaign=target_DZ_4a57b1";
+
+/* Wheel Data (ZA style) */
+const rewards = ["Try Again","R50","Bonus","R100","Almost","R500"];
 const colors = ["#ff4d4d","#00ffcc","#ffcc00","#00aaff","#ff66cc","#66ff66"];
 
 const canvas = document.getElementById("wheelCanvas");
@@ -144,7 +146,7 @@ function drawWheel(){
 
 drawWheel();
 
-/* ================= Spin ================= */
+/* Spin */
 let spun = false;
 
 function spin(){
@@ -153,25 +155,23 @@ function spin(){
 
   let wheel = document.getElementById("wheelCanvas");
 
-  // نخليه يقف على "Almost" (متحكمين)
-  let targetIndex = 4; 
+  let targetIndex = 4; // Almost
   let deg = 3600 + (targetIndex * (360 / slices));
 
   wheel.style.transform = "rotate("+deg+"deg)";
 
   setTimeout(()=>{
-    alert("😳 Almost! Answer 2 questions to unlock your reward");
     document.getElementById("spinSection").style.display="none";
     document.getElementById("quiz").style.display="block";
     loadQuestion();
   },4000);
 }
 
-/* ================= Quiz ================= */
+/* Quiz */
 let i=0;
 
 let questions = [
-  {q:"Which color is sky?",a:["Blue","Green","Red"]},
+  {q:"Which color is the sky?",a:["Blue","Green","Red"]},
   {q:"2 + 2 = ?",a:["3","4","5"]}
 ];
 
@@ -202,7 +202,7 @@ function nextQuestion(){
   }
 }
 
-/* ================= Result ================= */
+/* Result */
 function finish(){
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
