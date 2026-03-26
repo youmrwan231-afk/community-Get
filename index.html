@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spin & Win ZA</title>
+<title>South Africa Reward</title>
 
 <style>
 body{
@@ -21,11 +21,12 @@ body{
 }
 
 h1{font-size:22px}
+p{color:#ccc}
 
 .btn{
   width:100%;
   padding:14px;
-  margin:10px 0;
+  margin-top:15px;
   border:none;
   border-radius:12px;
   background:#00ffc3;
@@ -51,25 +52,23 @@ h1{font-size:22px}
 canvas{
   border-radius:50%;
   border:6px solid #fff;
-  transition:4s cubic-bezier(0.33, 1, 0.68, 1);
+  transition:3s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-#quiz,#result{
+#result{
   display:none;
+  animation:fade 0.5s ease;
 }
 
-.progress{
-  height:8px;
-  background:#ffffff30;
-  border-radius:20px;
-  overflow:hidden;
-  margin:15px 0;
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1}
 }
 
-.bar{
-  height:100%;
-  width:0%;
-  background:#00ffc3;
+.fake{
+  font-size:13px;
+  color:#aaa;
+  margin-top:10px;
 }
 </style>
 </head>
@@ -78,10 +77,9 @@ canvas{
 
 <div class="container">
 
-<!-- SPIN -->
 <div id="spinSection">
-  <h1>🎁 South Africa Reward Spin</h1>
-  <p>You have 1 chance to win today 🇿🇦</p>
+  <h1>🎁 South Africa Reward Draw</h1>
+  <p>Spin the wheel for a chance to win today 🇿🇦</p>
 
   <div class="wheel-container">
     <div class="pointer">▼</div>
@@ -89,23 +87,13 @@ canvas{
   </div>
 
   <button class="btn" onclick="spin()">SPIN NOW</button>
+
+  <div class="fake">🔥 63 people won rewards today</div>
 </div>
 
-<!-- QUIZ -->
-<div id="quiz">
-  <h1>🔒 Verify Your Reward</h1>
-  <p>Answer 2 quick questions</p>
-
-  <div class="progress"><div class="bar" id="bar"></div></div>
-
-  <h2 id="q"></h2>
-  <div id="answers"></div>
-</div>
-
-<!-- RESULT -->
 <div id="result">
   <h1>🎉 Congratulations!</h1>
-  <p>You unlocked your reward</p>
+  <p>You won <b>R500 Reward</b></p>
   <button class="btn" onclick="go()">Claim Now</button>
 </div>
 
@@ -113,11 +101,10 @@ canvas{
 
 <script>
 
-/* CPA LINK */
 const CPA_LINK = "https://max.bountyads.store/?utm_medium=b9043e438aaca0461451fdff93a6b518e2c96be6&utm_campaign=target_DZ_4a57b1";
 
-/* Wheel Data (ZA style) */
-const rewards = ["Try Again","R50","Bonus","R100","Almost","R500"];
+/* Wheel Setup */
+const rewards = ["R0","R50","Bonus","R100","R250","R500"];
 const colors = ["#ff4d4d","#00ffcc","#ffcc00","#00aaff","#ff66cc","#66ff66"];
 
 const canvas = document.getElementById("wheelCanvas");
@@ -138,7 +125,7 @@ function drawWheel(){
     ctx.translate(140,140);
     ctx.rotate(i*angle + angle/2);
     ctx.fillStyle="#000";
-    ctx.font="14px Arial";
+    ctx.font="bold 14px Arial";
     ctx.fillText(rewards[i],60,5);
     ctx.restore();
   }
@@ -147,67 +134,26 @@ function drawWheel(){
 drawWheel();
 
 /* Spin */
-let spun = false;
+let spun=false;
 
 function spin(){
   if(spun) return;
-  spun = true;
+  spun=true;
 
   let wheel = document.getElementById("wheelCanvas");
 
-  let targetIndex = 4; // Almost
+  let targetIndex = 5; // يخليها تكسب R500
   let deg = 3600 + (targetIndex * (360 / slices));
 
-  wheel.style.transform = "rotate("+deg+"deg)";
+  wheel.style.transform="rotate("+deg+"deg)";
 
   setTimeout(()=>{
     document.getElementById("spinSection").style.display="none";
-    document.getElementById("quiz").style.display="block";
-    loadQuestion();
-  },4000);
+    document.getElementById("result").style.display="block";
+  },3000);
 }
 
-/* Quiz */
-let i=0;
-
-let questions = [
-  {q:"Which color is the sky?",a:["Blue","Green","Red"]},
-  {q:"2 + 2 = ?",a:["3","4","5"]}
-];
-
-function loadQuestion(){
-  let q = questions[i];
-  document.getElementById("q").innerText = q.q;
-
-  let answers = document.getElementById("answers");
-  answers.innerHTML = "";
-
-  document.getElementById("bar").style.width=(i/questions.length*100)+"%";
-
-  q.a.forEach(a=>{
-    let btn=document.createElement("button");
-    btn.className="btn";
-    btn.innerText=a;
-    btn.onclick=nextQuestion;
-    answers.appendChild(btn);
-  });
-}
-
-function nextQuestion(){
-  i++;
-  if(i<questions.length){
-    loadQuestion();
-  }else{
-    finish();
-  }
-}
-
-/* Result */
-function finish(){
-  document.getElementById("quiz").style.display="none";
-  document.getElementById("result").style.display="block";
-}
-
+/* Redirect */
 function go(){
   window.location.href = CPA_LINK;
 }
