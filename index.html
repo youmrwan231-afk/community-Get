@@ -1,76 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZA Reward Spin</title>
+<title>Offre Abonnés Algérie</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:linear-gradient(135deg,#8B0000,#FF0000,#B22222);
-  color:#fff;
+  background:#f4f4f4;
   text-align:center;
 }
 
-.container{
-  max-width:420px;
-  margin:30px auto;
-  padding:20px;
-  background:#00000030;
-  border-radius:15px;
+/* Header */
+.header{
+  background:#007a3d;
+  color:#fff;
+  padding:15px;
+  font-size:18px;
+  font-weight:bold;
 }
 
-h1{font-size:22px}
-p{color:#ffecec}
+/* Container */
+.container{
+  max-width:420px;
+  margin:20px auto;
+  padding:20px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 0 10px #00000020;
+}
 
+h1{
+  font-size:20px;
+  color:#007a3d;
+}
+
+p{
+  color:#555;
+  font-size:14px;
+}
+
+/* Button */
 .btn{
   width:100%;
   padding:14px;
   margin-top:15px;
   border:none;
-  border-radius:12px;
-  background:#fff;
-  color:#000;
+  border-radius:10px;
+  background:#007a3d;
+  color:#fff;
   font-weight:bold;
+  font-size:16px;
   cursor:pointer;
 }
 
+/* Wheel */
 .wheel-container{
   position:relative;
-  width:280px;
-  height:280px;
+  width:260px;
+  height:260px;
   margin:20px auto;
 }
 
 .pointer{
   position:absolute;
-  top:-12px;
+  top:-10px;
   left:50%;
   transform:translateX(-50%);
-  font-size:30px;
+  font-size:28px;
+  color:#007a3d;
 }
 
 canvas{
   border-radius:50%;
-  border:6px solid #fff;
-  transition:3s cubic-bezier(0.33, 1, 0.68, 1);
+  border:5px solid #007a3d;
+  transition:3s ease;
 }
 
+/* Result */
 #result{
   display:none;
-  animation:fade 0.4s ease;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1}
+.badge{
+  background:#e6f4ea;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+  color:#007a3d;
+  font-weight:bold;
 }
 
 .fake{
-  font-size:13px;
-  color:#fff;
+  font-size:12px;
+  color:#888;
   margin-top:10px;
 }
 </style>
@@ -78,39 +103,48 @@ canvas{
 
 <body>
 
-<div class="container">
-
-<!-- SPIN -->
-<div id="spinSection">
-  <h1>🎁 South Africa Reward Draw</h1>
-  <p>Spin the wheel for a chance to win today 🇿🇦</p>
-
-  <div class="wheel-container">
-    <div class="pointer">▼</div>
-    <canvas id="wheelCanvas" width="280" height="280"></canvas>
-  </div>
-
-  <button class="btn" onclick="spin()">SPIN NOW</button>
-
-  <div class="fake">🔥 63 people in South Africa won rewards today</div>
+<div class="header">
+📶 Offre spéciale abonnés Algérie 🇩🇿
 </div>
 
-<!-- RESULT -->
+<div class="container">
+
+<h1>Bonus Internet & Crédit</h1>
+<p>Une offre exclusive pour les utilisateurs Mobilis, Djezzy et Ooredoo</p>
+
+<div id="spinSection">
+
+<div class="wheel-container">
+  <div class="pointer">▼</div>
+  <canvas id="wheelCanvas" width="260" height="260"></canvas>
+</div>
+
+<button class="btn" onclick="spin()">Vérifier mon bonus</button>
+
+<div class="fake">
+✔ Offre valable aujourd’hui uniquement<br>
+✔ 97 utilisateurs ont déjà reçu un bonus
+</div>
+
+</div>
+
 <div id="result">
-  <h1>🎉 Congratulations!</h1>
-  <p>You won <b>R500 Reward</b></p>
-  <button class="btn" onclick="go()">Claim Now</button>
+  <h1>🎉 Félicitations</h1>
+  <div class="badge">
+    Vous avez reçu : 3000 DA Flexy + 1GB Internet
+  </div>
+  <button class="btn" onclick="go()">Activer maintenant</button>
 </div>
 
 </div>
 
 <script>
 
-const CPA_LINK = "https://leads.leadseagle.shop/?utm_medium=2bdcb2ad8d16f284fe0c673b6aafac4fd2bd9727&utm_campaign=luckywheelza";
+const CPA_LINK = "PUT_YOUR_LINK_HERE";
 
-/* Wheel */
-const rewards = ["R0","R50","Bonus","R100","R250","R500"];
-const colors = ["#ff4d4d","#00ffcc","#ffcc00","#00aaff","#ff66cc","#66ff66"];
+/* Rewards */
+const rewards = ["0","500 DA","1GB","1000 DA","Bonus","3000 DA"];
+const colors = ["#ff4d4d","#00c851","#ffbb33","#33b5e5","#aa66cc","#2ecc71"];
 
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
@@ -121,23 +155,24 @@ const angle = 2 * Math.PI / slices;
 function drawWheel(){
   for(let i=0;i<slices;i++){
     ctx.beginPath();
-    ctx.moveTo(140,140);
-    ctx.arc(140,140,140,i*angle,(i+1)*angle);
+    ctx.moveTo(130,130);
+    ctx.arc(130,130,130,i*angle,(i+1)*angle);
     ctx.fillStyle = colors[i];
     ctx.fill();
 
     ctx.save();
-    ctx.translate(140,140);
+    ctx.translate(130,130);
     ctx.rotate(i*angle + angle/2);
     ctx.fillStyle="#000";
-    ctx.font="bold 14px Arial";
-    ctx.fillText(rewards[i],60,5);
+    ctx.font="bold 13px Arial";
+    ctx.fillText(rewards[i],50,5);
     ctx.restore();
   }
 }
 
 drawWheel();
 
+/* Spin */
 let spun=false;
 
 function spin(){
@@ -157,6 +192,7 @@ function spin(){
   },3000);
 }
 
+/* Redirect */
 function go(){
   window.location.href = CPA_LINK;
 }
